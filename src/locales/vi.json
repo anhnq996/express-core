@@ -1,0 +1,8 @@
+{
+  "welcome": "Bienvenido",
+  "item_created": "Artículo creado con éxito",
+  "item_not_found": "Artículo no encontrado",
+  "invalid_credentials": "Credenciales inválidas",
+  "No token, authorization denied": "No hay token, autorización denegada",
+  "Token is not valid": "Token không hợp lệ"
+}

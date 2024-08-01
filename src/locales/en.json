@@ -1,0 +1,8 @@
+{
+  "welcome": "Welcome",
+  "item_created": "Item created successfully",
+  "item_not_found": "Item not found",
+  "invalid_credentials": "Invalid credentials",
+  "No token, authorization denied": "No token, authorization denied",
+  "Token is not valid": "Token is not valid"
+}
