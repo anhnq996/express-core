@@ -42,10 +42,5 @@ jspm_packages/
 # Optional eslint cache
 .eslintcache
 
-# Docker files
-docker-compose.yml
-Dockerfile
-nginx.conf
-
 # VSCode settings
 .vscode/
