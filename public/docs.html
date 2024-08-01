@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Documentation</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <h2>API Documentation</h2>
+      <ul id="endpoints-list"></ul>
+    </div>
+    <div class="main-content">
+      <h1 id="title"></h1>
+      <p id="version"></p>
+      <div id="endpoints-content"></div>
+    </div>
+  </div>
+
+  <script>
+    fetch('/docs')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('title').innerText = data.title;
+        document.getElementById('version').innerText = `Version: ${data.version}`;
+
+        const endpointsList = document.getElementById('endpoints-list');
+        const endpointsContent = document.getElementById('endpoints-content');
+
+        data.endpoints.forEach(endpoint => {
+          const listItem = document.createElement('li');
+          listItem.innerText = `${endpoint.method} ${endpoint.route}`;
+          listItem.onclick = () => {
+            endpointsContent.innerHTML = `
+              <h2>${endpoint.method} ${endpoint.route}</h2>
+              <p>${endpoint.description}</p>
+              <h3>Parameters:</h3>
+              <ul>
+                ${endpoint.parameters.map(param => `
+                  <li>
+                    <strong>${param.name}</strong> (${param.type}) - ${param.description} ${param.required ? '<span class="required">Required</span>' : ''}
+                  </li>`).join('')}
+              </ul>
+              <h3>Responses:</h3>
+              ${Object.keys(endpoint.responses).map(code => `
+                <div>
+                  <h4>${code}</h4>
+                  <p>${endpoint.responses[code].description}</p>
+                  <pre>${JSON.stringify(endpoint.responses[code].body, null, 2)}</pre>
+                </div>`).join('')}
+            `;
+          };
+          endpointsList.appendChild(listItem);
+        });
+      })
+      .catch(error => console.error('Error fetching API documentation:', error));
+  </script>
+</body>
+</html>

@@ -4,8 +4,10 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const itemRoutes = require('./routes/itemRoutes');
 const authRoutes = require('./routes/authRoutes');
+const docsRoutes = require('./routes/docsRoutes');
 const cookieParser = require('cookie-parser');
 const i18nMiddleware = require('./middleware/i18nMiddleware');
+const path = require('path');
 
 dotenv.config();
 
@@ -20,9 +22,10 @@ app.use(i18nMiddleware);
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-
+app.use(express.static(path.join(__dirname, '../public')));
 app.use('/api/items', itemRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/', docsRoutes);
 
 app.use((err, req, res, next) => {
   res.status(500).json({ message: err.message });

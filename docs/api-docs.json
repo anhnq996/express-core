@@ -1,0 +1,53 @@
+{
+  "title": "API Documentation",
+  "version": "1.0.0",
+  "endpoints": [
+    {
+      "method": "GET",
+      "route": "/api/items",
+      "description": "Retrieve a list of items.",
+      "parameters": [],
+      "responses": {
+        "200": {
+          "description": "A list of items.",
+          "body": [
+            {
+              "id": "string",
+              "name": "string",
+              "description": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "route": "/api/items",
+      "description": "Create a new item.",
+      "parameters": [
+        {
+          "name": "name",
+          "type": "string",
+          "description": "The name of the item.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "description": "The description of the item.",
+          "required": true
+        }
+      ],
+      "responses": {
+        "201": {
+          "description": "Item created successfully.",
+          "body": {
+            "id": "string",
+            "name": "string",
+            "description": "string"
+          }
+        }
+      }
+    }
+  ]
+}
