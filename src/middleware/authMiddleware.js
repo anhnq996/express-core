@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 const i18n = require('i18n');
+const { formatResponse, ErrorCodes, ErrorStatus } = require('../utils/response');
 
 function authMiddleware(req, res, next) {
   const token = req.header('Authorization');
   if (!token) {
-    return res.status(401).json({ message: res.__('No token, authorization denied') });
+    res.status(ErrorStatus.UNAUTHORIZED).json(formatResponse(false, ErrorCodes.E5000, res.__('No token, authorization denied'), null, null, {}));
   }
 
   try {
@@ -12,7 +13,7 @@ function authMiddleware(req, res, next) {
     req.user = decoded;
     next();
   } catch (err) {
-    res.status(401).json({ message: res.__('Token is not valid') });
+    res.status(ErrorStatus.UNAUTHORIZED).json(formatResponse(false, ErrorCodes.E5000, res.__('Token is not valid'), null, null, {}));
   }
 }
 
